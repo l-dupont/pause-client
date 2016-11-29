@@ -1,6 +1,6 @@
 body {
   font-family: 'Lato', sans-serif;
-  background-color: #fbf9f0;
+  background-color: white;
 }
 
 .container {
@@ -8,7 +8,4 @@ body {
   margin-top: 100px;
   margin-left: auto;
   margin-right: auto;
-  padding: 30px;
-  border: 1px solid #e5e5e5;
-  background-color: white;
 }
