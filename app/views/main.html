@@ -1,3 +1,12 @@
-<h1>{{pause}}</h1>
+<h1>{{message}}</h1>
 <p>Mais c'est quand même l'heure du baby</p>
 <p style="color: #444;">{{date | date : "H:mm:ss" }}</p>
+<h4>Liste des pauses :</h4>
+<ul>
+  <li ng-repeat="pause in pauses">{{pause.beginHour}}h{{pause.beginMinute}} - {{pause.stopHour}}h{{pause.stopMinute}}</li>
+</ul>
+
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $(".timeago").timeago();
+  });
