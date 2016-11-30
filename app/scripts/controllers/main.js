@@ -11,6 +11,7 @@ angular.module('pauseApp')
   .controller('MainCtrl', function ($scope, $timeout) {
   	$scope.date = new Date();
   	$scope.message = "Non !";
+  	$scope.babyfoot = "Mais c'est quand même l'heure du baby";
   	$scope.tickInterval = 1000; //ms
   	$scope.pauses = [{'beginHour': 10, 'stopHour': 10, 'beginMinute': 15, 'stopMinute': 30}, {'beginHour': 12, 'stopHour': 13, 'beginMinute': 15, 'stopMinute': 40}, {'beginHour': 15, 'stopHour': 15, 'beginMinute': 30, 'stopMinute': 45}];
 
@@ -43,8 +44,10 @@ angular.module('pauseApp')
   		}
   		if (isPause) {
   			$scope.message = "Oui !";
+  			$scope.babyfoot = "YOLO";
   		} else {
   			$scope.message = "Non !";
+  			$scope.babyfoot = "Mais c'est quand même l'heure du baby";
   		}
   	}
 
