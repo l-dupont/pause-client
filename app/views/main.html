@@ -1,3 +1,4 @@
 <h1>{{message}}</h1>
 <p>{{babyfoot}}</p>
-<p style="color: #444;">Prochaine pause dans : {{nextPause | date : "H"}}h{{nextPause | date : "mm"}} et {{nextPause | date : "ss"}}s</p>
+<p style="color: #444;" ng-show="showPause">Prochaine pause dans {{nextPause | date : "HH'h'mm 'et 'ss' s'" : '+0000'}}</p>
+<p style="color: #444;" ng-hide="showPause">Prochaine pause demain à 10h15...</p>

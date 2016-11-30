@@ -25,13 +25,10 @@ angular.module('pauseApp')
   		$scope.dates.push(datePause);
   	}
 
-  	console.log($scope.dates);
-
   	var tick = function() {
   	    $scope.date = new Date() // get the current time
   	    $scope.checkPause();
   	    $timeout(tick, $scope.tickInterval); // reset the timer
-
   	}
 
   	// Start the timer
@@ -61,15 +58,20 @@ angular.module('pauseApp')
   			$scope.babyfoot = "Mais c'est quand même l'heure du baby";
   		}
   		let diffTmp = 0;
-  		for (var i = 0; i < $scope.dates.length; i++) {
-  			if ($scope.date < $scope.dates[i]) {
-  				var nextPauseTmp = $scope.dates[i] - $scope.date;
-  				if (nextPauseTmp < diffTmp || diffTmp === 0) {
-  					diffTmp = nextPauseTmp;
-  				}
-  			}
+  		if ($scope.date.getHours() > 15 && $scope.date.getMinutes() > 30) { 			
+			for (var i = 0; i < $scope.dates.length; i++) {
+				if ($scope.date < $scope.dates[i]) {
+					var nextPauseTmp = $scope.dates[i] - $scope.date;
+					if (nextPauseTmp < diffTmp || diffTmp === 0) {
+						diffTmp = nextPauseTmp;
+					}
+				}
+			}
+			$scope.showPause = true;
+			$scope.nextPause = diffTmp;
+  		} else {
+  			$scope.showPause = false;
   		}
-  		$scope.nextPause = diffTmp;
   	}
 
   	$scope.checkPause();
