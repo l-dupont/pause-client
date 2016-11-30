@@ -1,7 +1,3 @@
 <h1>{{message}}</h1>
 <p>{{babyfoot}}</p>
-<p style="color: #444;">{{date | date : "H:mm:ss" }}</p>
-<h4>Liste des pauses :</h4>
-<ul>
-  <li ng-repeat="pause in pauses">{{pause.beginHour}}h{{pause.beginMinute}} - {{pause.stopHour}}h{{pause.stopMinute}}</li>
-</ul>
+<p style="color: #444;">Prochaine pause dans : {{nextPause | date : "H"}}h{{nextPause | date : "mm"}} et {{nextPause | date : "ss"}}s</p>

@@ -14,7 +14,18 @@ angular.module('pauseApp')
   	$scope.babyfoot = "Mais c'est quand même l'heure du baby";
   	$scope.tickInterval = 1000; //ms
   	$scope.pauses = [{'beginHour': 10, 'stopHour': 10, 'beginMinute': 15, 'stopMinute': 30}, {'beginHour': 12, 'stopHour': 13, 'beginMinute': 15, 'stopMinute': 40}, {'beginHour': 15, 'stopHour': 15, 'beginMinute': 30, 'stopMinute': 45}];
+  	$scope.dates = [];
+  	$scope.nextPause = 1;
 
+  	for (var i = 0; i < $scope.pauses.length; i++) {
+  		let datePause = new Date();
+  		datePause.setHours($scope.pauses[i].beginHour);
+  		datePause.setMinutes($scope.pauses[i].beginMinute);
+  		datePause.setSeconds(0);
+  		$scope.dates.push(datePause);
+  	}
+
+  	console.log($scope.dates);
 
   	var tick = function() {
   	    $scope.date = new Date() // get the current time
@@ -49,6 +60,16 @@ angular.module('pauseApp')
   			$scope.message = "Non !";
   			$scope.babyfoot = "Mais c'est quand même l'heure du baby";
   		}
+  		let diffTmp = 0;
+  		for (var i = 0; i < $scope.dates.length; i++) {
+  			if ($scope.date < $scope.dates[i]) {
+  				var nextPauseTmp = $scope.dates[i] - $scope.date;
+  				if (nextPauseTmp < diffTmp || diffTmp === 0) {
+  					diffTmp = nextPauseTmp;
+  				}
+  			}
+  		}
+  		$scope.nextPause = diffTmp;
   	}
 
   	$scope.checkPause();
