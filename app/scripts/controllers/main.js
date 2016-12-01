@@ -58,7 +58,8 @@ angular.module('pauseApp')
   			$scope.babyfoot = "Mais c'est quand même l'heure du baby";
   		}
   		let diffTmp = 0;
-  		if ($scope.date.getHours() < 15 && $scope.date.getMinutes() < 30) { 			
+
+  		if ($scope.date.getHours() < 16) { 			
 			for (var i = 0; i < $scope.dates.length; i++) {
 				if ($scope.date < $scope.dates[i]) {
 					var nextPauseTmp = $scope.dates[i] - $scope.date;
