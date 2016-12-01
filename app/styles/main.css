@@ -9,3 +9,16 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+div.footer {
+  width: 97%;
+  position: absolute;
+  bottom: 0;
+}
+
+div.footer img {
+  position: absolute;
+  width: 150px;
+  right: 0;
+  bottom: 0;
+}

@@ -16,6 +16,7 @@ angular.module('pauseApp')
   	$scope.pauses = [{'beginHour': 10, 'stopHour': 10, 'beginMinute': 15, 'stopMinute': 30}, {'beginHour': 12, 'stopHour': 13, 'beginMinute': 15, 'stopMinute': 40}, {'beginHour': 15, 'stopHour': 15, 'beginMinute': 30, 'stopMinute': 45}];
   	$scope.dates = [];
   	$scope.nextPause = 1;
+  	$scope.showPause = true;
 
   	for (var i = 0; i < $scope.pauses.length; i++) {
   		let datePause = new Date();
@@ -25,16 +26,34 @@ angular.module('pauseApp')
   		$scope.dates.push(datePause);
   	}
 
+  	var updateTimer = function () {
+  		let diffTmp = 0;
+  		if ($scope.date.getHours() < 16) { 			
+	  		for (var i = 0; i < $scope.dates.length; i++) {
+	  			if ($scope.date < $scope.dates[i]) {
+	  				var nextPauseTmp = $scope.dates[i] - $scope.date;
+	  				if (nextPauseTmp < diffTmp || diffTmp === 0) {
+	  					diffTmp = nextPauseTmp;
+	  				}
+	  			}
+	  		}
+	  		$scope.showPause = true;
+	  		$scope.nextPause = diffTmp;
+  		} else {
+  			$scope.showPause = false;
+  		}
+  	}
+
   	var tick = function() {
   	    $scope.date = new Date() // get the current time
-  	    $scope.checkPause();
+  	    checkPause();
+  	    updateTimer();
   	    $timeout(tick, $scope.tickInterval); // reset the timer
   	}
 
-  	// Start the timer
-  	$timeout(tick, $scope.tickInterval);
+  	
 
-  	$scope.checkPause = function () {
+  	var checkPause = function () {
   		let isPause = false;
   		let date = $scope.date;
   		for (var i = 0; i < $scope.pauses.length; i++) {
@@ -57,24 +76,16 @@ angular.module('pauseApp')
   			$scope.message = "Non !";
   			$scope.babyfoot = "Mais c'est quand même l'heure du baby";
   		}
-  		let diffTmp = 0;
-
-  		if ($scope.date.getHours() < 16) { 			
-			for (var i = 0; i < $scope.dates.length; i++) {
-				if ($scope.date < $scope.dates[i]) {
-					var nextPauseTmp = $scope.dates[i] - $scope.date;
-					if (nextPauseTmp < diffTmp || diffTmp === 0) {
-						diffTmp = nextPauseTmp;
-					}
-				}
-			}
-			$scope.showPause = true;
-			$scope.nextPause = diffTmp;
-  		} else {
-  			$scope.showPause = false;
-  		}
   	}
 
-  	$scope.checkPause();
+  	var init = function () {
+  		checkPause();
+  		updateTimer();
+  	}
 
-  });
+  	init();
+
+  	// Start the timer
+  	$timeout(tick, $scope.tickInterval);
+
+});
